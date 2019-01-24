@@ -1,1 +1,67 @@
-Poner lo que dice en la pagina 114 y 118.
+\paragraph{}
+En cuanto a expansión en series de señales en tiempo discreto se estudiarán dos tipos, las ortonormales y biortogonales. En todos los casos trabajaremos con señales $x[n] \in l_{2}(\mathbb{Z})$.
+
+% ------------------------------------------------------------------------
+
+\paragraph{Series Ortonormales}
+En esta expansion se dispone de una base de funciones $\phi_k$ que satisfacen la condición de ortonormalidad:
+
+\begin{equation}
+	\langle \phi_k[n] , \phi_l[n] \rangle = \delta[k - l]
+\end{equation}
+
+\paragraph{}
+Donde $\delta_[n]$ es la función delta de Kroenecker. Con esta base se puede expresar las señales $x[n]$ de la forma:
+
+\begin{equation}
+	x[n] = \sum_{z \in \mathbb{Z}} \langle \phi_k[l] , x[l] \rangle \phi_{k}[n] = \sum_{z \in \mathbb{Z}} X[k] \phi_{k}[n]
+\end{equation}
+
+\paragraph{}
+Donde:
+
+\begin{equation}
+	X[k] = \langle \phi_k[l] , x[l] \rangle = \sum_{l} \phi_{k}^{*} x[l]
+\end{equation}
+
+Es la transformada de $x[n]$.
+
+% ------------------------------------------------------------------------
+
+\paragraph{Series Biortogonales}
+En este tipo de expansión se dispone, no de una base ortonormal, sino de dos bases $\{ \phi_{k} \}$ y $\{ \tilde{\phi_{k}} \}$, que satisfacen la condición de biortogonalidad:
+
+\begin{equation}
+	\langle \phi_k[n] , \tilde{\phi_l}[n] \rangle = \delta[k - l]
+\end{equation}
+
+\paragraph{}
+Condición que se verá que está relacionada con la construcción perfecta. De esta forma se puede expresar las señales $x[n]$ de la forma:
+
+\begin{equation}
+	x[n] = \sum_{z \in \mathbb{Z}} \langle \phi_k[l] , x[l] \rangle \tilde{\phi}_{k}[n] = \sum_{z \in \mathbb{Z}} \tilde{X}[k] \tilde{\phi}_{k}[n]
+\end{equation}
+
+\paragraph{}
+O de manera equivalente:
+
+\begin{equation}
+	x[n] = \sum_{z \in \mathbb{Z}} \langle \tilde{\phi}_k[l] , x[l] \rangle \phi_{k}[n] = \sum_{z \in \mathbb{Z}} X[k] \phi_{k}[n]
+\end{equation}
+
+\paragraph{}
+Donde:
+
+\begin{equation}
+	\tilde{X}[k] = \langle \phi_k[l] , x[l] \rangle
+\end{equation}
+
+\paragraph{}
+Y:
+
+\begin{equation}
+	X[k] = \langle \tilde{\phi}_k[l] , x[l] \rangle
+\end{equation}
+
+\paragraph{}
+Son las transformadas de $x[n]$, con respecto a las bases $\{ \phi_{k} \}$ y $\{ \tilde{\phi_{k}} \}$.
