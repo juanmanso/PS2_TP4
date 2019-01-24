@@ -1,0 +1,28 @@
+
+	Sea $x[n] \in l_2(\mathcal{Z})$ y el vector base $\varphi_k[n]$ definen la transformación:
+		\begin{equation*}
+			\tilde{X}[k] = \sum_{l} \varphi^{*}_k [l] \, x[l] = \langle \varphi_k[l], x[l] \rangle
+		\end{equation*}
+	
+	El vector base $\tilde{\varphi}_k[n]$ define la transformación dual:
+		\begin{equation*}
+			X[k] = \sum_{l} \tilde{\varphi}^{*}_k [l] \, x[l] = \langle \tilde{\varphi}_k[l], x[l] \rangle
+		\end{equation*}
+
+	Ambas transformaciones se relacionan para la expansión del vector $x$ según:
+		\begin{align*}
+			x[n]	&= \sum_{k\in\mathcal{Z}} \tilde{X}[k] \, \tilde{\varphi}_k[n]\\
+				&= \sum_{k\in\mathcal{Z}} X[k] \, \varphi_k [n]
+		\end{align*}
+	
+	Se dice que una expansión es \emph{ortonormal} cuando $\varphi_k[n] = \tilde{\varphi}_k[n]$ (y por tanto $X[k] = \tilde{X}[k]$) y se cumple la condición de ortogonalidad:
+		\begin{equation*}
+			\langle \varphi_i,\varphi_j \rangle = \begin{cases} 1 &\quad i=j \\ 0 &\quad i\neq j \end{cases}
+		\end{equation*}
+
+	Si en cambio los vectores duales son linealmente independientes pero no ortonormales, entonces es \emph{biortogonal} la expansión y satisfacen:
+		\begin{equation*}
+			\langle \varphi_i,\tilde{\varphi}_j \rangle = \begin{cases} 1 &\quad i=j \\ 0 &\quad i\neq j \end{cases}
+		\end{equation*}
+
+		Una propiedad importante es la conservación de la energía que se puede expresar como el producto interno de las transformaciones ($\| x\|^2 = \langle X[k],\tilde{X}[k] \rangle$) donde en el caso particular de una expansión ortonormal se resume a $\|x\|^2 = \|X\|^2$.
