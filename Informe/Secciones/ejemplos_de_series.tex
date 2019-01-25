@@ -126,4 +126,45 @@ Ver que cada muestra de $y_{i}[k]$ suma una copia de la respuesta impulsiva de $
 
 \subsection{Expansión Sinc}
 
-Poner lo que dice de la pagina 126 y 127 resumido.
+El objetivo de la presente sección era poder demostrar la conexión que hay entre los bancos de filtros y las expansiones en serie, incluyendo alguna idea intuitiva de lo que significa reconstrucción perfecta. Si bien este objetivo queda cumplido con la sección anterior, que habla sobre la expansión de Haar, queremos introducir brevemenete la expansión sinc por una cuestión de completitud. La expansión sinc posee cierta dualidad con la expansión de Haar en cierto sentido a exponer. Las funciones base en la expansión de Haar están bien localizadas en el tiempo, ya que se componen de solo dos muestras adyacentes, pero tienen una mala resolución en frecuencia. Las funciones base de la expansión sinc, por el contrario, constituyen las respuestas al impulso de filtros pasabajo y pasaalto ideales. Si bien tienen una resolusión en frecuencia perfecta, tienen una mala localización en el tiempo ya que las respuestas decaen con una proporción de 1/n.
+
+\paragraph{}
+Para empezar elegiremos a nuestro $G_{0}$ como un filtro pasabajos ideal:
+
+\[ G_{0}(e^{j\omega}) = \begin{cases} 
+      \sqrt{2} & \omega \in [-\frac{\pi}{2}, \frac{\pi}{2}] \\
+      0 & \omega \in [\frac{\pi}{2}, \frac{3\pi}{2}]
+   \end{cases}
+\]
+
+\paragraph{}
+Que en el tiempo es:
+
+\begin{equation}
+  g_{0}[n] = \frac{1}{\sqrt{2}} \frac{sin \pi n / 2}{\pi n / 2}
+\end{equation}
+
+\paragraph{}
+Para $G_{1}$ se debe elegir un filtro pasaaltos complementario. Para esto, elegimos una versión modulada de $g_{0}[n]$, invertida en el tiempo, con un desplazamiento en 1 (Por una cuestion de completitud de las funciones base):
+
+\begin{equation}
+  g_{1}[n] = (-1)^n g_{0}[-n + 1]
+\end{equation}
+
+\paragraph{}
+En cuanto a los filtros de analisis $h_{i}[n]$, como en el caso anterior, elegimos una version invertida en el tiempo de los filtros de sintesis $g_{i}[n]$:
+
+\begin{equation}
+  h_{i}[n] = g_{i}[-n]
+\end{equation}
+
+\paragraph{}
+De esta forma hemos construido un banco de filtros que implementa la expansion sinc. La expansion sinc, al igual que la Haar, posee funciones base que son versiones con corrimientos pares de los filtros $g_{i}[n]$:
+
+\begin{equation}
+  \phi_{2k}[n] = g_{0}[n - 2k]
+\end{equation}
+
+\begin{equation}
+  \phi_{2k + 1}[n] = g_{1}[n - 2k]
+\end{equation}
