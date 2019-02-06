@@ -20,7 +20,7 @@ La primera de las expansiones será la de Haar, dicha expansión es ortonormal y
 \]
 
 \paragraph{}
-La idea sería demostrar que esta expansión puede implementarse con una estructura de bancos de filtros. La estructura a utilizar es la de la figura \ref{fig:banco_de_2}.
+La idea será demostrar que esta expansión puede implementarse con una estructura de bancos de filtros. La estructura a utilizar es la de la Figura \ref{fig:banco_de_2}.
 
 	\begin{figure}[h!]
 		\centering
@@ -30,7 +30,7 @@ La idea sería demostrar que esta expansión puede implementarse con una estruct
 	\end{figure}
 	
 \paragraph{}
-Dicha estructura se compone de una parte de analisis, compuesta por los filtros $H_{0}$ y $H_{1}$, junto con los dos Downsamplers de 2. El objetivo de la parte de analisis es poder computar en las salidas $y_{0}$ e $y_{1}$ los coeficientes de la expansion. La parte de sintesis esta compuesta por los filtros $G_{0}$ y $G_{1}$, junto con los Upsamplers de 2. El objetivo de la parte de sintesis es poder recuperar la señal original a la salida. Si la reconstrucción es perfecta, la salida será una versión posiblemente retrasada de la señal de entrada.
+Dicha estructura se compone de una parte de análisis, compuesta por los filtros $H_{0}$ y $H_{1}$, junto con los dos Downsamplers de 2. El objetivo de la parte de análisis es poder computar en las salidas $y_{0}$ e $y_{1}$ los coeficientes de la expansión. La parte de síntesis esta compuesta por los filtros $G_{0}$ y $G_{1}$, junto con los Upsamplers de 2. El objetivo de la parte de síntesis es poder recuperar la señal original a la salida. Si la reconstrucción es perfecta, la salida será una versión posiblemente retrasada de la señal de entrada.
 
 \paragraph{}
 Lo primero que se debe ver es que los coeficientes de la expansión se pueden calcular de la siguiente manera:
@@ -122,14 +122,14 @@ Se puede ver que se recupera la señal $x[n]$:
 \end{equation}
 
 \paragraph{}
-Ver que cada muestra de $y_{i}[k]$ suma una copia de la respuesta impulsiva de $g_{i}[n]$ desplazada en $2k$. Esto puede ser implementado mediante un Upsampling en 2 (Insertando un 0 entre cada dos muestras de $y_{i}[k]$). De esta forma hemos realizado la reconstrucción de la señal utilizando la parte de sintesis del banco de filtros. Con esta elección de los filtros, nuestro banco de filtros de la figura \ref{fig:banco_de_2} es un banco de filtros de reconstrucción perfecta, de dos canales, que implementa la expansión en series de Haar.
+Ver que cada muestra de $y_{i}[k]$ suma una copia de la respuesta impulsiva de $g_{i}[n]$ desplazada en $2k$. Esto puede ser implementado mediante un Upsampling en 2 (Insertando un 0 entre cada dos muestras de $y_{i}[k]$). De esta forma hemos realizado la reconstrucción de la señal utilizando la parte de síntesis del banco de filtros. Con esta elección de los filtros, nuestro banco de filtros de la figura \ref{fig:banco_de_2} es un banco de filtros de reconstrucción perfecta, de dos canales, que implementa la expansión en series de Haar.
 
 \subsection{Expansión Sinc}
 
-El objetivo de la presente sección era poder demostrar la conexión que hay entre los bancos de filtros y las expansiones en serie, incluyendo alguna idea intuitiva de lo que significa reconstrucción perfecta. Si bien este objetivo queda cumplido con la sección anterior, que habla sobre la expansión de Haar, queremos introducir brevemenete la expansión sinc por una cuestión de completitud. La expansión sinc posee cierta dualidad con la expansión de Haar en cierto sentido a exponer. Las funciones base en la expansión de Haar están bien localizadas en el tiempo, ya que se componen de solo dos muestras adyacentes, pero tienen una mala resolución en frecuencia. Las funciones base de la expansión sinc, por el contrario, constituyen las respuestas al impulso de filtros pasabajo y pasaalto ideales. Si bien tienen una resolusión en frecuencia perfecta, tienen una mala localización en el tiempo ya que las respuestas decaen con una proporción de 1/n.
+El objetivo de la presente sección es poder demostrar la conexión que hay entre los bancos de filtros y las expansiones en serie, incluyendo alguna idea intuitiva de lo que significa reconstrucción perfecta. Si bien este objetivo queda cumplido con la sección anterior, que habla sobre la expansión de Haar, se desea introducir brevemenete la expansión sinc por una cuestión de completitud. La expansión sinc posee cierta dualidad con la expansión de Haar en cierto sentido a exponer. Las funciones base en la expansión de Haar están bien localizadas en el tiempo, ya que se componen de solo dos muestras adyacentes, pero tienen una mala resolución en frecuencia. Las funciones base de la expansión sinc, por el contrario, constituyen las respuestas al impulso de filtros pasabajo y pasaalto ideales. Si bien tienen una resolusión en frecuencia perfecta, tienen una mala localización en el tiempo ya que las respuestas decaen con una proporción de 1/n.
 
 \paragraph{}
-Para empezar elegiremos a nuestro $G_{0}$ como un filtro pasabajos ideal:
+Para empezar se elige $G_{0}$ como un filtro pasabajos ideal:
 
 \[ G_{0}(e^{j\omega}) = \begin{cases} 
       \sqrt{2} & \omega \in [-\frac{\pi}{2}, \frac{\pi}{2}] \\
@@ -145,21 +145,21 @@ Que en el tiempo es:
 \end{equation}
 
 \paragraph{}
-Para $G_{1}$ se debe elegir un filtro pasaaltos complementario. Para esto, elegimos una versión modulada de $g_{0}[n]$, invertida en el tiempo, con un desplazamiento en 1 (Por una cuestion de completitud de las funciones base):
+Para $G_{1}$ se debe elegir un filtro pasaaltos complementario. Para esto, se elige una versión modulada de $g_{0}[n]$, invertida en el tiempo, con un desplazamiento en 1 (por una cuestion de completitud de las funciones base):
 
 \begin{equation}
   g_{1}[n] = (-1)^n g_{0}[-n + 1]
 \end{equation}
 
 \paragraph{}
-En cuanto a los filtros de analisis $h_{i}[n]$, como en el caso anterior, elegimos una version invertida en el tiempo de los filtros de sintesis $g_{i}[n]$:
+En cuanto a los filtros de análisis $h_{i}[n]$, como en el caso anterior, se elige una versión invertida en el tiempo de los filtros de síntesis $g_{i}[n]$:
 
 \begin{equation}
   h_{i}[n] = g_{i}[-n]
 \end{equation}
 
 \paragraph{}
-De esta forma hemos construido un banco de filtros que implementa la expansion sinc. La expansion sinc, al igual que la Haar, posee funciones base que son versiones con corrimientos pares de los filtros $g_{i}[n]$:
+De esta forma se ha construido un banco de filtros que implementa la expansión sinc. La expansión sinc, al igual que la Haar, posee funciones base que son versiones con corrimientos pares de los filtros $g_{i}[n]$:
 
 \begin{equation}
   \phi_{2k}[n] = g_{0}[n - 2k]

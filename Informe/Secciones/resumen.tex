@@ -1,0 +1,81 @@
+
+	\section{Definiciones}
+
+		\subsection{Base ortonormal}
+			Si las señales elementales $\varphi$ son ortonormales y es igual a su complemento, entonces el producto interno es una delta
+
+		\subsection{Base biortogonal}
+			Si las señales elementales son linealmente independientes y no ortonormales. Idem producto interno pero entre elemental y complemento.
+			Un ejemplo es que las señales elementales sean las canónicas y los complementos, una rotación.
+
+		\subsection{Marco (\emph{frame})}
+			Si no son LI, entonces está sobrecompletado y por tanto se tiene un marco (\emph{frame}).
+
+	\section{Criterios para elegir bases}
+
+		La transformación Karhunen-Loève concentra la mayor cantidad de energía en la menor cantidad de coeficientes posible, mejorando la compresión. Sin embargo para ciertas operaciones como la convolución conviene utilizar representaciones como la de la serie de Fourier.\\
+
+		En particular, nos interesan representaciones con estructura. Es decir, como se quiere reducir la complejidad de las operaciones, es conveniente que los vectores base estén relacionados a través de operaciones elementales como corrimiento en tiempo, escalamiento y modulación. Para obtener grandes resoluciones, es decir con bases muy grandes (hasta infinitas), sería muy costo sin estas estructuras.\\
+
+
+		\subsection{Fourier versus \emph{Wavelets}}
+
+		La representación en serie de Fourier tiene propiedades importantes como la de la convolución pero el problema está en que funciona unívocamente para señales periódicas. Se puede extender a no-periódicas, pero sufre efectos artificiales en las fronteras al segmentar y tiene problemas de convergencia en las mismas.\\
+		
+		Una solución es la transformación de tiempo corto de Fourier (STFT) donde se ventanea a la señal y se le realiza una expansión de Fourier. Así se genera una grilla rectangular en el plano tiempo-frecuencia que es muy útil en el análisis de señales. Sin embargo, tiene dos problemas mayores. El primero es que dicha construcción no genera buenas bases ortonormales. Y por segundo lugar, se suele preferir una escala logarítmica en frecuencia dado que en audio es importante esa clasificación y que esta representación no satisface.\\
+
+		La alternativa es la transformada \emph{wavelet} donde las escalas son potencias de un factor de escala elemental (típicamente 2). Así las frecuencias bajas (con ancho de banda angosto/señales con duración prologada en tiempo) se muestrean con pasos temporales grandes, mientras las altas frecuencias (señales de poca duración) son muestreadas más seguido. Lo importante es que ésta descomposición da una buena base ortonormal a diferencia de la de STFT.\\
+
+		Una expansión más general se basa en bancos de filtros donde se pueden encontrar características de ambas representaciones (sampleo rectangular y bandas logarítmicas en frecuencia o \emph{constant relative bandwith}).
+
+		Interestingly, the relationship between continuous- and discrete-time bases runs
+		deeper than just these conceptual similarities. One of the most interesting constructions of wavelets is the one by Daubechies [71]. It relies on the iteration
+		of a discrete-time filter bank so that, under certain conditions, it converges to a
+		continuous-time wavelet basis. Furthermore, the multiresolution framework used
+		in the analysis of wavelet decompositions automatically associates a discrete-time
+		perfect reconstruction filter bank to any wavelet decomposition. Finally, the wavelet series decomposition can be computed with a filter bank algorithm. Therefore,
+		especially in the wavelet type of a signal expansion, there is a very close interaction
+		between discrete and continuous time.
+
+
+		En conclusión: Para análisis de señales no importa la descomposición ortonormal y por tanto es buena la representación por Fourier. Para caracterisación local de funciones en cambio es útil usar \emph{wavelets} que actuan como microscopios concentrandose en fenomenos de tiempo corto.
+		
+	
+	\section{Concepto de multiresolución}
+		Ejemplo de descomposición piramidal. La idea es separar la señal en una versión gruesa o vaga (\emph{coarse}) y comprimirla haciendo todo ésto por medio de un filtro pasabajos o una decimación y a la versión original restarle la nueva versión pero reescalada a la original. La tercer versión es la residual o de error y contiene el error al bajar la resolución. Por tanto uno transmite la versión vaga y comprimida, y con ella la versión residual que contiene los errores de compresión.
+
+	\section{Vision general del libro}
+		
+		{\large{Capítulo 2:}} Espacios de Hilbert, teoría de Fourier, y material sobre muestreo y fourier en tiempo discreto. 
+
+	\subsection{Ortonormalidad y Biortogonalidad}
+	Sea $x[n] \in l_2(\mathcal{Z})$ y el vector base $\varphi_k[n]$ definen la transformación:
+		\begin{equation*}
+			\tilde{X}[k] = \sum_{l} \varphi^{*}_k [l] \, x[l] = \langle \varphi_k[l], x[l] \rangle
+		\end{equation*}
+	
+	El vector base $\tilde{\varphi}_k[n]$ define la transformación dual:
+		\begin{equation*}
+			X[k] = \sum_{l} \tilde{\varphi}^{*}_k [l] \, x[l] = \langle \tilde{\varphi}_k[l], x[l] \rangle
+		\end{equation*}
+
+	Ambas transformaciones se relacionan para la expansión del vector $x$ según:
+		\begin{align*}
+			x[n]	&= \sum_{k\in\mathcal{Z}} \tilde{X}[k] \, \tilde{\varphi}_k[n]\\
+				&= \sum_{k\in\mathcal{Z}} X[k] \, \varphi_k [n]
+		\end{align*}
+	
+	Se dice que una expansión es \emph{ortonormal} cuando $\varphi_k[n] = \tilde{\varphi}_k[n]$ (y por tanto $X[k] = \tilde{X}[k]$) y se cumple la condición de ortogonalidad:
+		\begin{equation*}
+			\langle \varphi_i,\varphi_j \rangle = \begin{cases} 1 &\quad i=j \\ 0 &\quad i\neq j \end{cases}
+		\end{equation*}
+
+	Si en cambio los vectores duales son linealmente independientes pero no ortonormales, entonces es \emph{biortogonal} la expansión y satisfacen:
+		\begin{equation*}
+			\langle \varphi_i,\tilde{\varphi}_j \rangle = \begin{cases} 1 &\quad i=j \\ 0 &\quad i\neq j \end{cases}
+		\end{equation*}
+
+		Una propiedad importante es la conservación de la energía que se puede expresar como el producto interno de las transformaciones ($\| x\|^2 = \langle X[k],\tilde{X}[k] \rangle$) donde en el caso particular de una expansión ortonormal se resume a $\|x\|^2 = \|X\|^2$.
+
+		\subsection{Haan y Sinc}
+\Mati{Poner lo que dice en la pagina 114 y 118.}

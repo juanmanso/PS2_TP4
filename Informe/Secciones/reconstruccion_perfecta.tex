@@ -5,6 +5,7 @@ El significado de reconstrucción perfecta, en el contexto de bancos de filtros,
 
 \begin{equation}
 	\hat{X}(z) = c z^{-k} X(z)
+	\label{eq:recons_perf}
 \end{equation}
 
 Analizaremos el significado de esta definición en los distintos dominios antes dichos.
@@ -78,11 +79,100 @@ Siendo cada una de las submatrices $A_i$
 
 \subsection{Análisis en el Dominio Modulado}
 
-Poner lo que dice de la pagina 134 a 136.
+\Mati{Poner lo que dice de la pagina 134 a 136.}
 
 \subsection{Análisis en el Dominio Polifásico}
 
-Poner lo que dice de la pagina 137 a 139.
+\Mati{Poner lo que dice de la pagina 137 a 139.}
 
-\paragraph{}
-La idea sería dar las formulas equivalentes para N canales. Estan en las páginas 184 a 188.
+	Al igual que en el análisis del dominio modulado, se descompone el sistema periódicamente 
+	\Juan{Giribet dice invariante cuando en el libro dice time-varying. Sería más correcto poner tiempo-variante}
+	invariante en varios subsistemas tiempo invariantes. En este caso se descomponen los sistemas en sus componentes polifásicas. 
+	Dicha descomposición consta de versiones submuestreadas y con diferentes fases, cuya suma y corrección de fase reconstruye la sucesión inicial.
+	%En una trasformación polifásica, se descompone la sucesión en $N$ sucesiones que cada una es retardada $i$ unidades y submuestreada en $N$ con respecto a la original. 
+	Formalmente se definen las componentes polifásicas en el tiempo según
+		\begin{equation}
+			x_i[n] = x[nN+i]
+			\label{eq:poly_comp}
+		\end{equation}
+		
+		y en transformada $z$ como 
+		\begin{equation} %2.5.20
+			X(z)= \sum^{N-1}_{i=0} z^{-i} \, X_i(z^N)
+			\label{eq:poly_comp_z}
+		\end{equation}
+		
+		con
+		\begin{equation} %2.5.21
+			X_i(z)=\sum^{\infty}_{n=-\infty} x[nN+ i]\, z^{-n}
+			\label{eq:poly_comp_i_z}
+		\end{equation}
+%	Formalmente se definen las componentes polifásicas en el tiempo según \eqref{eq:poly_comp} y en transformada $z$ según \eqref{eq:poly_comp_z} con \eqref{eq:poly_comp_i_z}.
+
+	\graficarPNG{polifasico_n_2}{Descomposición polifásica como banco de filtros.}{fig:poli_n_2}
+	Se propone probar la reconstrucción perfecta, es decir $x = \hat{x}$ o equivalentemente $X(z) = \hat{X}(z)$. Se presenta el sistema de la Figura \ref{fig:poli_n_2}, considerando $N=2$ y con filtros de análisis $\vect{H}_p(z)$ y síntesis $\vect{G}_p(z)$. 
+
+	Como $N=2$ la transformada $z$ en el dominio polifásico de $x$ resulta:
+		\begin{equation}
+			X(z) = X_0 (z^2) + z^{-1}\, X_1 (z^2)
+			\label{eq:xp_z}
+		\end{equation}
+	mientras que la componente i-ésima del filtro $H_p$ (calculada al igual que \eqref{eq:poly_comp_z} y \eqref{eq:poly_comp_i_z} salvo la inversión de fase) se simplifica a:
+		\begin{equation}
+			H_i(z) = H_{i0} (z^2) + z\, H_{i1} (z^2)
+			\label{eq:hpi_z}
+		\end{equation}
+
+		Así se encuentra $\vect{y}_p(z)$ como:
+		\begin{equation}
+		\underbrace{\begin{bmatrix} Y_0(z)\\[0.3em] Y_1(z) \end{bmatrix}}_{\vect{y}_p(z)} = \underbrace{\begin{bmatrix} H_{00}(z) & H_{01}(z) \\[0.3em] H_{10}(z) & H_{11}(z) \end{bmatrix}}_{\vect{H}_p(z)} \underbrace{\begin{bmatrix} X_0(z) \\[0.3em] X_1(z) \end{bmatrix}}_{\vect{x}_p(z)}
+			\label{eq:in_poly_z}
+		\end{equation}
+
+		Del mismo modo, pero en orden inverso al realizar el sobremuestreo primero, se obtiene $\hat{X}(z)$ a partir de $\vect{y}_p(z)$ como:
+		\begin{equation}
+		\hat{X}(z) = \begin{bmatrix} 1 & z^{-2} \end{bmatrix} \underbrace{\begin{bmatrix} G_{00}(z^2) & G_{01}(z^2) \\[0.3em] G_{10}(z^2) & G_{11}(z^2) \end{bmatrix}}_{\vect{G}_p(z^2)} \underbrace{\begin{bmatrix} Y_0(z^2)\\[0.3em] Y_1(z^2) \end{bmatrix}}_{\vect{y}_p(z^2)} 
+			\label{eq:out_poly_z}
+		\end{equation}
+
+		Reemplazando \eqref{eq:in_poly_z} en \eqref{eq:out_poly_z}:
+		\begin{equation*}
+		\hat{X}(z) = \begin{bmatrix} 1 & z^{-2} \end{bmatrix}\; \underbrace{\vect{G}_p(z^2) \; \vect{H}_p(z^2)}_{\vect{T}_p(z^2)} \; \vect{x}_p(z^2)
+		\end{equation*}
+
+		Se puede ver que si $\vect{T}_p(z^2) = \vect{I}$, la reconstrucción es perfecta obteniéndose el mismo resultado que \eqref{eq:xp_z}. Para el caso no trivial de la matriz identidad, si la matriz transferencia consta de retardos y factores de amplificación/atenuación, la reconstrucción sigue siendo perfecta como se establece en \eqref{eq:recons_perf}.
+
+	\subsection{Resultados en Bancos de Filtros}
+	%\newtheorem{prepo}{Preposición}
+	%\theoremstyle{definition}
+	El mayor problema de las reconstrucciones es el \emph{aliasing}. Dada la naturaleza de los sistemas periódicamente invariantes, la salida depende no sólo de la entrada sino también de su versión modulada por $(-1)^n$. En términos de la transformada $z$, dependen de $X(z)$ y también de $X(-z)$ imponiendo una distorsión no-harmónica llamada \emph{aliasing}. Por lo tanto, es de gran interés encontrar reconstrucciones libres \emph{aliasing}\\
+
+	%\begin{prepo}
+		Se prueba que se puede cancelar el aliasing si sólo si la matriz transferencia $\vect{T}_p(z)$ es seudocirculante. Ésto quiere decir que las filas de la matriz tienen los mismos coeficientes salvo un \emph{shift} lateral, y los coeficientes de la triagular inferior se ven multiplicados por $z$. En $2\times 2$ una matriz de transferencia típica tiene la forma:
+		\begin{equation*}
+		\vect{T}_p(z) = \begin{bmatrix} F_0 (z) & F_1(z) \\[0.3em] z\, F_1(z) & F_0(z) \end{bmatrix}
+		\end{equation*}
+			
+		Un corolario interesante de la proposicion anterior es que $\vect{T}_p(z)$ tiene que ser una matriz de retardo $d$ seudocirculante. Matemáticamente se ve como:
+		\begin{equation*}
+		\begin{cases}\vect{T}_p(z)=z^{-k}\begin{bmatrix}1&0\\0&1\end{bmatrix}, &\text{si }d=2k \\[0.5cm]
+		\vect{T}_p(z)=z^{-k-1}\begin{bmatrix}0&1\\z&0\end{bmatrix}, &\text{si }d=2k+1\end{cases}
+		\end{equation*}
+	%\end{prepo}
+
+		Otra preposición que se obtiene es que la reconstrucción es perfecta y sin aliasing si sólo si se hace un submuestreo de tamaño $N$ y $\vect{H}_p(z)$ es de rango $N$ o rango completo (equivalente a pedir que el determinante no sea nulo). La prueba es trivial dado que si se elige a $\vect{G}_p(z)$ como la matriz de cofactores de $\vect{H}_p(z)$, entonces $\vect{T}_p(z) = \det\left(\vect{H}_p(z)\right)\,\vect{I}$ que es seudocirculante.\\
+
+		Un caso interesante es determinar cuándo para filtros FIR la reconstrucción es perfecta. Ésto sucede si solo si el determinante de $H_p(z)$ es un retardo puro.\\
+		\Juan{Lo expliqué bien...? Duda}
+		\indent Si la reconstrucción es perfecta, $\det(\vect{T}_p(z)) = z^{-d}$. Como $\det(\vect{T}_p(z))$ tiene $d$ polos en 0 y $\det(\vect{G}_p(z))$ tiene que tener ceros únicamente (para ser FIR), entonces necesariamente $\det(\vect{H}_p(z)$) no puede tener ceros (excepto en el origen e infinito) y por tanto es FIR.\\
+
+		Por último se destaca el método de QMF (\emph{quadrature mirror filters}) que cancela el \emph{aliasing} en filtros de 2 canales. Como se vio en la sección de dominio modulado para una reconstrucción perfecta libre de \emph{aliasing} se requiere cumplir las Ecuaciones (ecuación 3.2.15 y 16 multiplicada por un delay $z^{-l}$). La solución propuesta entonces se resume en:
+		\begin{equation*}
+			H^2_0 (z) - H^2_0 (-z) = 2\, z^{-l}
+		\end{equation*}
+
+		Para el caso particular FIR, ésta condición no se puede satisfacer excepto que se utilice únicamente un filtro de Haar causal. Si se considerasen filtros de fase lineal dicho resultado no se puede obtener pero se puede aproximar.
+
+
+\Mati{La idea sería dar las formulas equivalentes para N canales. Estan en las páginas 184 a 188.}
+
