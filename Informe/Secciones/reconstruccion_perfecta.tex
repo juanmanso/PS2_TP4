@@ -12,7 +12,7 @@ Analizaremos el significado de esta definición en los distintos dominios antes 
 
 \subsection{Análisis en el Dominio del Tiempo}
 
-Poner lo que dice de la pagina 130 a 133.
+\Mati{Poner lo que dice de la pagina 130 a 133.}
 
 \begin{equation}
 	\begin{pmatrix}
@@ -83,10 +83,7 @@ Siendo cada una de las submatrices $A_i$
 
 \subsection{Análisis en el Dominio Polifásico}
 
-\Mati{Poner lo que dice de la pagina 137 a 139.}
-
 	Al igual que en el análisis del dominio modulado, se descompone el sistema periódicamente 
-	\Juan{Giribet dice invariante cuando en el libro dice time-varying. Sería más correcto poner tiempo-variante}
 	invariante en varios subsistemas tiempo invariantes. En este caso se descomponen los sistemas en sus componentes polifásicas. 
 	Dicha descomposición consta de versiones submuestreadas y con diferentes fases, cuya suma y corrección de fase reconstruye la sucesión inicial.
 	%En una trasformación polifásica, se descompone la sucesión en $N$ sucesiones que cada una es retardada $i$ unidades y submuestreada en $N$ con respecto a la original. 
@@ -162,16 +159,23 @@ Siendo cada una de las submatrices $A_i$
 
 		Otra preposición que se obtiene es que la reconstrucción es perfecta y sin aliasing si sólo si se hace un submuestreo de tamaño $N$ y $\vect{H}_p(z)$ es de rango $N$ o rango completo (equivalente a pedir que el determinante no sea nulo). La prueba es trivial dado que si se elige a $\vect{G}_p(z)$ como la matriz de cofactores de $\vect{H}_p(z)$, entonces $\vect{T}_p(z) = \det\left(\vect{H}_p(z)\right)\,\vect{I}$ que es seudocirculante.\\
 
-		Un caso interesante es determinar cuándo para filtros FIR la reconstrucción es perfecta. Ésto sucede si solo si el determinante de $H_p(z)$ es un retardo puro.\\
-		\Juan{Lo expliqué bien...? Duda}
-		\indent Si la reconstrucción es perfecta, $\det(\vect{T}_p(z)) = z^{-d}$. Como $\det(\vect{T}_p(z))$ tiene $d$ polos en 0 y $\det(\vect{G}_p(z))$ tiene que tener ceros únicamente (para ser FIR), entonces necesariamente $\det(\vect{H}_p(z)$) no puede tener ceros (excepto en el origen e infinito) y por tanto es FIR.\\
-
-		Por último se destaca el método de QMF (\emph{quadrature mirror filters}) que cancela el \emph{aliasing} en filtros de 2 canales. Como se vio en la sección de dominio modulado para una reconstrucción perfecta libre de \emph{aliasing} se requiere cumplir las Ecuaciones (ecuación 3.2.15 y 16 multiplicada por un delay $z^{-l}$). La solución propuesta entonces se resume en:
+		Un caso interesante es determinar cuándo para filtros FIR la reconstrucción es perfecta. Ésto sucede si solo si el determinante de $\vect{H}_p(z)$ es un retardo puro.\\
+		\indent Tomando $\vect{H}_p(z)$ como un retardo puro y $\vect{G}_p(z)$ como la matriz de cofactores de $\vect{H}_p(z)$ se obtiene reconstrucción perfecta con filtros FIR. Por otro lado, si la reconstrucción es perfecta con filtros FIR, $\vect{T}_p(z)$ tiene que ser un retardo puro pseudocirculante: 
+		
 		\begin{equation*}
-			H^2_0 (z) - H^2_0 (-z) = 2\, z^{-l}
+			\det(\vect{T}_p(z)) = \det(\vect{G}_p(z)) \det(\vect{H}_p(z)) = z^{-d}
 		\end{equation*}
+		
+		Como $\det(\vect{T}_p(z))$ tiene $d$ polos en 0 y las síntesis $\det(\vect{G}_p(z))$ tiene que tener ceros únicamente (para ser FIR), entonces necesariamente $\det(\vect{H}_p(z)$) no puede tener ceros (excepto en el origen e infinito).\\
 
-		Para el caso particular FIR, ésta condición no se puede satisfacer excepto que se utilice únicamente un filtro de Haar causal. Si se considerasen filtros de fase lineal dicho resultado no se puede obtener pero se puede aproximar.
+	% ESTO SE SACO PARA QUE GIRIBET NO NOS PREGUNTE COSAS MAS AVANZADAS DE ESTO.
+
+		%Por último se destaca el método de QMF (\emph{quadrature mirror filters}) que cancela el \emph{aliasing} en filtros de 2 canales. Como se vio en la sección de dominio modulado para una reconstrucción perfecta libre de \emph{aliasing} se requiere cumplir las Ecuaciones (ecuación 3.2.15 y 16 multiplicada por un delay $z^{-l}$). La solución propuesta entonces se resume en:
+		%\begin{equation*}
+		%	H^2_0 (z) - H^2_0 (-z) = 2\, z^{-l}
+		%\end{equation*}
+
+		%Para el caso particular FIR, ésta condición no se puede satisfacer excepto que se utilice únicamente un filtro de Haar causal. Si se considerasen filtros de fase lineal dicho resultado no se puede obtener pero se puede aproximar.
 
 
 \Mati{La idea sería dar las formulas equivalentes para N canales. Estan en las páginas 184 a 188.}
