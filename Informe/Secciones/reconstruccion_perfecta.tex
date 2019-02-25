@@ -77,9 +77,162 @@ Siendo cada una de las submatrices $A_i$
 	\end{bmatrix*}
 \end{equation}
 
+\Emi{Falta agregar el speech y alguna que otra ecuación}
+
 \subsection{Análisis en el Dominio Modulado}
 
 \Mati{Poner lo que dice de la pagina 134 a 136.}
+
+	Para este caso, la idea es expresar a la señal submuestrada en dos $X'(z)$ como
+		\begin{equation}
+			X'(z)=\frac{1}{2}[X(z^{1/2})+X(-z^{1/2})]
+		\end{equation}
+
+	Luego, al sobremuestrear por dos a $X'(z)$, se expresa a $X''(z)=X'(z^2)$ como
+		\begin{equation}
+			X''(z)=\frac{1}{2}[X(z)+X(-z)]
+		\end{equation}
+
+	Entonces la señal filtrada por el filtro $H_0(z)$, de acuerdo al esquema de la Figura \ref{fig:banco_de_2}, resulta
+		\begin{equation}
+			\frac{1}{2}[H_0(z)X(z)+H_0(-z)X(-z)]
+		\end{equation}
+
+	Filtrando con $G_0(z)$ a continuación, se obtiene $X_0(z)$
+		\begin{equation}
+			X_0(z)=\frac{1}{2}G_0(z)[H_0(z)X(z)+H_0(-z)X(-z)]
+		\end{equation}
+
+	Análogamente, en la otra rama del esquema se obtiene $X_1(z)$
+		\begin{equation}
+			X_1(z)=\frac{1}{2}G_1(z)[H_1(z)X(z)+H_1(-z)X(-z)]
+		\end{equation}
+
+	La salida reconstruida $\hat{X}(z)$ se obtiene como la suma de ambas ramas. Expresado de forma matricial:
+		\begin{equation}
+			\hat{X}(z)
+			=
+			X_0(z)+X_1(z)
+			=
+			\frac{1}{2}
+			\begin{pmatrix}
+				G_0(z) & G_1(z)
+			\end{pmatrix}
+			\underbrace{
+				\begin{pmatrix}
+					H_0(z) & H_0(-z) \\
+					H_1(z) & H_1(-z)
+				\end{pmatrix}
+			}_{\vect{H}_m(z)}
+			\underbrace{
+				\begin{pmatrix}
+					X(z) X(-z)
+				\end{pmatrix}
+			}_{\vect{x}_m(z)}
+		\label{eq:modmat}
+		\end{equation}
+
+	Donde $\vect{H}_m(z)$ es la matriz de análisis de modulación, que tiene versiones moduladas de los filtros de análisis, y $\vect{x}_m(z)$, que son las versiones moduladas de $X(z)$
+
+	\graficarPNG{analisis_modulado}{Análisis en el dominio modulado del banco de filtros}{fig:analisis_mod}
+
+	Para obtener las versiones submuestreadas $Y_0(z)$ e $Y_1(z)$:
+		\begin{equation}
+			\begin{pmatrix}
+				Y_0(z) \\
+				Y_1(z)
+			\end{pmatrix}
+			=
+			\frac{1}{2}
+			\begin{pmatrix}
+				H_0(z^{1/2}) & H_0(-z^{1/2}) \\
+				H_1(z^{1/2}) & H_1(-z^{1/2}) \\
+			\end{pmatrix}
+			\begin{pmatrix}
+				X(z^{1/2}) \\
+				X(-z^{1/2})
+			\end{pmatrix}
+		\end{equation}
+	
+	O bien, de forma matricial, con las matrices $\vect{H}_m(z)$ y $\vect{x}_m(z)$ anteriormente definidas
+		\begin{equation}
+			\vect{y}(z)=\frac{1}{2}\vect{H}_m(z^{1/2})\vect{x}_m(z^{1/2})
+		\end{equation}
+
+	Para comprobar que en efecto se trata de un filtro de reconstrucción perfecta, debe cumplir que
+		\begin{equation}
+			\hat{X}(z)=X(z)
+		\end{equation}
+
+	Observando nuevamente la ecuación \eqref{eq:modmat}, esto implica que
+		\begin{align}
+			G_0(z)H_0(z)+G_1(z)H_1(z)=2		\label{eq:modcond}\\
+			G_0(z)H_0(-z)+G_1(z)H_1(-z)=0		\label{eq:modcond2}
+		\end{align}
+
+	O bien, matricialmente
+		\begin{equation}
+			\begin{pmatrix}
+				G_0(z) & G_1(z)
+			\end{pmatrix}
+			\vect{H}_m(z)
+			=
+			\begin{pmatrix}
+				2 & 0
+			\end{pmatrix}
+		\end{equation}
+
+	Asumiendo que $\vect{H}_m(z)$ es invertible, se resuelve para $G_0(z)$ $G_1(z)$
+		\begin{equation}
+			\begin{pmatrix}
+				G_0(z) \\
+				G_1(z)
+			\end{pmatrix}
+			=
+			\frac{2}{\det{(\vect{H}_m(z))}}
+			\begin{pmatrix}
+				H_1(-z) \\
+				-H_0(-z)
+			\end{pmatrix}
+		\end{equation}
+		
+	Ahora, definiendo $P(z)=G_0(z)H_0(z)$
+		\begin{equation}
+			P(z)=\frac{2}{\det{(\vect{H}_m(z))}}H_1(-z)H_0(z)
+		\end{equation}
+
+	De igual modo, teniendo en cuenta que $-\det{(\vect{H}_m(z))}=\det{(\vect{H}_m(-z))}$, hallamos que
+		\begin{equation}
+			G_1(z)H_1(z)=\frac{2}{\det{(\vect{H}_m(-z))}}H_0(-z)H_1(z)=P(-z)
+		\end{equation}
+
+	Entonces, reemplazando a $P(z)$ y $P(-z)$ en  \eqref{eq:modcond}
+		\begin{equation}
+			P(z)+P(-z)=2
+		\end{equation}
+	
+	Por lo tanto, todos los coeficientes pares distintos de cero se anulan, y $P(0)=1$. $P(z)$ entonces adopta la forma
+		\begin{equation}
+			P(z)=1+\sum_{k\in\mathbb{Z}} p[2k+1]z^{-(2k+1)}
+		\end{equation}
+	
+	Observando nuevamente \eqref{eq:modcond} y \eqref{eq:modcond2}, y transformándolas al dominio del tiempo nuevamente a través de la propiedad de modulación/convolución: \Emi{Modulación o convolución?}
+		\begin{equation}
+			\sum_{k\in\mathbb{Z}}g_0[k]h_0[n-k]+(-1)^n\sum_{k\in\mathbb{Z}}g_0[k]h_0[n-k]=2\delta[n]
+			\label{eq:modconvol}
+		\end{equation}
+
+	Al cancelarse los términos impares, la Ecuación \eqref{eq:modconvol} puede reescribirse como
+		\begin{equation}
+			\sum_{k\in\mathbb{Z}}g_0[k]h_0[2n-k]=\delta[n]
+		\end{equation}
+
+	Y presentado como un producto interno:
+		\begin{equation}
+			\langle g_0[k],h_0[2n-k] \rangle=\delta[n]
+		\end{equation}
+
+\Emi{Falta vincular con condicion de biortogonalidad}
 
 \subsection{Análisis en el Dominio Polifásico}
 
