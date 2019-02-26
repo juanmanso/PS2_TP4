@@ -14,74 +14,73 @@ Analizaremos el significado de esta definición en los distintos dominios antes 
 
 \Mati{Poner lo que dice de la pagina 130 a 133.}
 
-\begin{equation}
-	\begin{pmatrix}
-		\vdots \\
-		y_0[0] \\
-		y_1[0] \\
-		y_0[1] \\
-		y_1[1] \\
-		\vdots \\
-	\end{pmatrix}
-	=
-	\begin{pmatrix}
-		\vdots \\
-		X[0] \\
-		X[1] \\
-		X[2] \\
-		X[3] \\
-		\vdots \\
-	\end{pmatrix}
-	= T_a 
-	\begin{pmatrix}
-		\vdots \\
-		x[0] \\
-		x[1] \\
-		x[2] \\
-		x[3] \\
-		\vdots \\
-	\end{pmatrix}
-\end{equation}
-
-\begin{equation}
-	T_a=
-	\begin{bmatrix*}[c]
-		\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots\\
-		h_0[L-1] & h_0[L-2] & h_0[L-3] & \hdots & h_0[0] & 0 & 0 \\
-		h_1[L-1] & h_1[L-2] & h_1[L-3] & \hdots & h_1[0] & 0 & 0 \\
-		0 & 0 & h_0[L-1] & \hdots & h_0[2] & h_0[1] & h_0[0] \\
-		0 & 0 & h_1[L-1] & \hdots & h_1[2] & h_1[1] & h_1[0] \\
-		\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
-	\end{bmatrix*}
-\end{equation}
+Primero, se expresan los coeficientes transformados del siguiente modo:
+	\begin{equation}
+		\begin{pmatrix}
+			\vdots \\
+			y_0[0] \\
+			y_1[0] \\
+			y_0[1] \\
+			y_1[1] \\
+			\vdots \\
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+			\vdots \\
+			X[0] \\
+			X[1] \\
+			X[2] \\
+			X[3] \\
+			\vdots \\
+		\end{pmatrix}
+		= T_a 
+		\begin{pmatrix}
+			\vdots \\
+			x[0] \\
+			x[1] \\
+			x[2] \\
+			x[3] \\
+			\vdots \\
+		\end{pmatrix}
+	\end{equation}
+	
+	\begin{equation}
+		T_a=
+		\begin{bmatrix*}[c]
+			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots\\
+			h_0[L-1] & h_0[L-2] & h_0[L-3] & \hdots & h_0[0] & 0 & 0 \\
+			h_1[L-1] & h_1[L-2] & h_1[L-3] & \hdots & h_1[0] & 0 & 0 \\
+			0 & 0 & h_0[L-1] & \hdots & h_0[2] & h_0[1] & h_0[0] \\
+			0 & 0 & h_1[L-1] & \hdots & h_1[2] & h_1[1] & h_1[0] \\
+			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
+		\end{bmatrix*}
+	\end{equation}
 
 Asumiendo que los filtros $h_i$ son FIR de largo $L=2K$, la matriz $T_a$ puede refactorizarse del siguiente modo:
 
-\begin{equation}
-	T_a=
-	\begin{bmatrix*}[c]
-		 & \vdots & \vdots &  & \vdots & \vdots & &\\
-		\hdots & A_0 & A_1 & \hdots & A_{K-1} & 0 & \hdots  \\
-		\hdots & 0 & A_0 & \hdots & A_{K-2} & A_{K-1} & \hdots  \\
-		 & \vdots & \vdots &  & \vdots & \vdots & &\\		
-	\end{bmatrix*}
-\end{equation}
+	\begin{equation}
+		T_a=
+		\begin{bmatrix*}[c]
+			 & \vdots & \vdots &  & \vdots & \vdots & &\\
+			\hdots & A_0 & A_1 & \hdots & A_{K-1} & 0 & \hdots  \\
+			\hdots & 0 & A_0 & \hdots & A_{K-2} & A_{K-1} & \hdots  \\
+			 & \vdots & \vdots &  & \vdots & \vdots & &\\		
+		\end{bmatrix*}
+	\end{equation}
 
 Siendo cada una de las submatrices $A_i$
 
-\begin{equation}
-	A_i=
-	\begin{bmatrix*}[c]
-		h_0[2K-1-2i] & h_0[2K-2-2i] \\
-		h_1[2K-1-2i] & h_1[2K-2-2i] \\
-	\end{bmatrix*}
-\end{equation}
-
+	\begin{equation}
+		A_i=
+		\begin{bmatrix*}[c]
+			h_0[2K-1-2i] & h_0[2K-2-2i] \\
+			h_1[2K-1-2i] & h_1[2K-2-2i] \\
+		\end{bmatrix*}
+	\end{equation}
+	
 \Emi{Falta agregar el speech y alguna que otra ecuación}
 
 \subsection{Análisis en el Dominio Modulado}
-
-\Mati{Poner lo que dice de la pagina 134 a 136.}
 
 	Para este caso, la idea es expresar a la señal submuestrada en dos $X'(z)$ como
 		\begin{equation}
@@ -232,7 +231,15 @@ Siendo cada una de las submatrices $A_i$
 			\langle g_0[k],h_0[2n-k] \rangle=\delta[n]
 		\end{equation}
 
-\Emi{Falta vincular con condicion de biortogonalidad}
+	Vinculándolo con la Ecuación \eqref{eq:biortcond}, que establece la condición de biortogonalidad, se establecen las restricciones siguientes:
+
+	\begin{align}
+		\langle \hat{\phi_1[k]},\phi_{2n+1}[k] \rangle = \delta[n]	\\
+		\langle \hat{\phi_0[k]},\phi_{2n+1}[k]\rangle	= 0	\\
+		\langle \hat{\phi_1[k]},\phi_{2n}[k]\rangle = 0
+	\end{align}
+
+	Es decir, hay un estrecho vínculo entre la condición de reconstrucción perfecta y que las funciones base deban ser biortogonales.
 
 \subsection{Análisis en el Dominio Polifásico}
 
