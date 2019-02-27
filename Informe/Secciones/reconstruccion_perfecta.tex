@@ -87,7 +87,7 @@ Observando el esquema \ref{fig:banco_de_2}, $y_0[k]$ e $y_1[k]$ pueden expresars
 		y_1[k]=X[2k+1]
 	\end{align}
 
-Y dado que los coeficientes transformados $X[k]$ son la proyección de la señal en la función base k-ésima
+Y dado que los coeficientes transformados $X[k]$ son la proyección de la señal sobre la función base k-ésima
 	
 	\begin{align}
 		&\text{Para $k=2k'$}	\nonumber \\
@@ -98,7 +98,37 @@ Y dado que los coeficientes transformados $X[k]$ son la proyección de la señal
 		&y_1[k']=\langle h_1[2k'-n], x[n]\rangle
 	\end{align}
 
+Para reconstruir la señal, basta con utilizar las funciones duales de las bases, a través de la matriz $\vect{Ts}$, que cumple
 
+	\begin{equation}
+		\vect{x}=\vect{T}_s\vect{y}=\vect{T}_s\vect{X}=\vect{T}_s\vect{T}_a\vect{x}
+	\end{equation}
+
+La misma tiene la siguiente forma
+
+	\begin{equation}
+		\vect{T}^T_s
+		=
+		\begin{bmatrix*}[c]
+			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots\\
+			g_0[0] & g_0[1] & g_0[2] & \hdots & g_0[L'-1] & 0 & 0 \\
+			g_1[0] & g_1[1] & g_1[2] & \hdots & g_1[L'-1] & 0 & 0 \\
+			0 & 0 & g_0[0] & \hdots & g_0[L'-3] & g_0[L'-2] & g_0[L'-1] \\
+			0 & 0 & g_1[0] & \hdots & g_1[L'-3] & g_1[L'-2] & g_1[L'-1] \\
+			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
+		\end{bmatrix*}	
+	\end{equation}
+
+Y agrupando en submatrices $\vect{S}_i$, siendo $g_0[n]$ y $g_1[n]$ los filtros de síntesis
+
+	\begin{equation}
+		\vect{S}_i
+		=
+		\begin{bmatrix*}[c]
+			g_0[2i] & g_0[2i] \\
+			g_1[2i+1] & g_1[2i+1] \\
+		\end{bmatrix*}
+	\end{equation}
 	
 \Emi{Falta agregar el speech y alguna que otra ecuación}
 
