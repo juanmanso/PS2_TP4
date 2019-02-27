@@ -43,7 +43,9 @@ Primero, se expresan los coeficientes transformados del siguiente modo:
 			\vdots \\
 		\end{pmatrix}
 	\end{equation}
-	
+
+Donde $\vect{T}_a$ es la matriz de análisis, que adopta la siguiente forma
+
 	\begin{equation}
 		T_a=
 		\begin{bmatrix*}[c]
@@ -77,6 +79,26 @@ Siendo cada una de las submatrices $A_i$
 			h_1[2K-1-2i] & h_1[2K-2-2i] \\
 		\end{bmatrix*}
 	\end{equation}
+
+Observando el esquema \ref{fig:banco_de_2}, $y_0[k]$ e $y_1[k]$ pueden expresarse como
+
+	\begin{align}
+		y_0[k]=X[2k]	\\
+		y_1[k]=X[2k+1]
+	\end{align}
+
+Y dado que los coeficientes transformados $X[k]$ son la proyección de la señal en la función base k-ésima
+	
+	\begin{align}
+		&\text{Para $k=2k'$}	\nonumber \\
+		&y_0[k']=\langle h_0[2k'-n], x[n]\rangle		
+	\end{align}
+	\begin{align}
+		&\text{Para $k=2k'+1$}	\nonumber \\
+		&y_1[k']=\langle h_1[2k'-n], x[n]\rangle
+	\end{align}
+
+
 	
 \Emi{Falta agregar el speech y alguna que otra ecuación}
 
