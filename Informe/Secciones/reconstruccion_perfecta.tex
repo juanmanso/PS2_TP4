@@ -101,7 +101,7 @@ Y dado que los coeficientes transformados $X[k]$ son la proyección de la señal
 		&y_1[k']=\langle h_1[2k'-n], x[n]\rangle
 	\end{align}
 
-Para reconstruir la señal, basta con utilizar las funciones duales de las bases, a través de la matriz $\vect{Ts}$, que cumple
+Para reconstruir la señal, basta con utilizar las funciones duales de las bases, a través de la matriz $\vect{T}_s$, que cumple
 
 	\begin{equation}
 		\vect{x}=\vect{T}_s\vect{y}=\vect{T}_s\vect{X}=\vect{T}_s\vect{T}_a\vect{x}
@@ -308,7 +308,7 @@ Es decir, se cumple la condición de biortogonalidad
 			P(z)=1+\sum_{k\in\mathbb{Z}} p[2k+1]z^{-(2k+1)}
 		\end{equation}
 	
-	Observando nuevamente \eqref{eq:modcond} y \eqref{eq:modcond2}, y transformándolas al dominio del tiempo nuevamente a través de la propiedad de modulación/convolución: \Emi{Modulación o convolución?}
+	Observando nuevamente \eqref{eq:modcond} y \eqref{eq:modcond2}, y transformándolas al dominio del tiempo nuevamente a través de la propiedad de modulación: 
 		\begin{equation}
 			\sum_{k\in\mathbb{Z}}g_0[k]h_0[n-k]+(-1)^n\sum_{k\in\mathbb{Z}}g_0[k]h_0[n-k]=2\delta[n]
 			\label{eq:modconvol}
@@ -395,24 +395,24 @@ Es decir, se cumple la condición de biortogonalidad
 	\subsection{Resultados en Bancos de Filtros}
 	%\newtheorem{prepo}{Preposición}
 	%\theoremstyle{definition}
-	El mayor problema de las reconstrucciones es el \emph{aliasing}. Dada la naturaleza de los sistemas periódicamente invariantes, la salida depende no sólo de la entrada sino también de su versión modulada por $(-1)^n$. En términos de la transformada $z$, dependen de $X(z)$ y también de $X(-z)$ imponiendo una distorsión no-harmónica llamada \emph{aliasing}. Por lo tanto, es de gran interés encontrar reconstrucciones libres \emph{aliasing}\\
+	El mayor problema de las reconstrucciones es el \emph{aliasing}. Dada la naturaleza de los sistemas periódicamente invariantes, la salida depende no sólo de la entrada sino también de su versión modulada por $(-1)^n$. En términos de la transformada $z$, dependen de $X(z)$ y también de $X(-z)$ imponiendo una distorsión no armónica llamada \emph{aliasing}. Por lo tanto, es de gran interés encontrar reconstrucciones libres de \emph{aliasing}\\
 
 	%\begin{prepo}
-		Se prueba que se puede cancelar el aliasing si sólo si la matriz transferencia $\vect{T}_p(z)$ es seudocirculante. Ésto quiere decir que las filas de la matriz tienen los mismos coeficientes salvo un \emph{shift} lateral, y los coeficientes de la triagular inferior se ven multiplicados por $z$. En $2\times 2$ una matriz de transferencia típica tiene la forma:
+		Se prueba que se puede cancelar el aliasing si y sólo si la matriz transferencia $\vect{T}_p(z)$ es seudocirculante. Ésto quiere decir que las filas de la matriz tienen los mismos coeficientes salvo un \emph{shift} lateral, y los coeficientes de la triagular inferior se ven multiplicados por $z$. En $2\times 2$ una matriz de transferencia típica tiene la forma:
 		\begin{equation*}
 		\vect{T}_p(z) = \begin{bmatrix} F_0 (z) & F_1(z) \\[0.3em] z\, F_1(z) & F_0(z) \end{bmatrix}
 		\end{equation*}
 			
-		Un corolario interesante de la proposicion anterior es que $\vect{T}_p(z)$ tiene que ser una matriz de retardo $d$ seudocirculante. Matemáticamente se ve como:
+		Un corolario interesante de la proposición anterior es que $\vect{T}_p(z)$ tiene que ser una matriz de retardo $d$ seudocirculante. Matemáticamente se ve como:
 		\begin{equation*}
 		\begin{cases}\vect{T}_p(z)=z^{-k}\begin{bmatrix}1&0\\0&1\end{bmatrix}, &\text{si }d=2k \\[0.5cm]
 		\vect{T}_p(z)=z^{-k-1}\begin{bmatrix}0&1\\z&0\end{bmatrix}, &\text{si }d=2k+1\end{cases}
 		\end{equation*}
 	%\end{prepo}
 
-		Otra preposición que se obtiene es que la reconstrucción es perfecta y sin aliasing si sólo si se hace un submuestreo de tamaño $N$ y $\vect{H}_p(z)$ es de rango $N$ o rango completo (equivalente a pedir que el determinante no sea nulo). La prueba es trivial dado que si se elige a $\vect{G}_p(z)$ como la matriz de cofactores de $\vect{H}_p(z)$, entonces $\vect{T}_p(z) = \det\left(\vect{H}_p(z)\right)\,\vect{I}$ que es seudocirculante.\\
+		Otra proposición que se obtiene es que la reconstrucción es perfecta y sin aliasing si y sólo si se hace un submuestreo de tamaño $N$ y $\vect{H}_p(z)$ es de rango $N$ o rango completo (equivalente a pedir que el determinante no sea nulo). La prueba es trivial dado que si se elige a $\vect{G}_p(z)$ como la matriz de cofactores de $\vect{H}_p(z)$, entonces $\vect{T}_p(z) = \det\left(\vect{H}_p(z)\right)\,\vect{I}$ que es seudocirculante.\\
 
-		Un caso interesante es determinar cuándo para filtros FIR la reconstrucción es perfecta. Ésto sucede si solo si el determinante de $\vect{H}_p(z)$ es un retardo puro.\\
+		Un caso interesante es determinar cuándo para filtros FIR la reconstrucción es perfecta. Ésto sucede si y sólo si el determinante de $\vect{H}_p(z)$ es un retardo puro.\\
 		\indent Tomando $\vect{H}_p(z)$ como un retardo puro y $\vect{G}_p(z)$ como la matriz de cofactores de $\vect{H}_p(z)$ se obtiene reconstrucción perfecta con filtros FIR. Por otro lado, si la reconstrucción es perfecta con filtros FIR, $\vect{T}_p(z)$ tiene que ser un retardo puro pseudocirculante: 
 		
 		\begin{equation*}
@@ -431,5 +431,5 @@ Es decir, se cumple la condición de biortogonalidad
 		%Para el caso particular FIR, ésta condición no se puede satisfacer excepto que se utilice únicamente un filtro de Haar causal. Si se considerasen filtros de fase lineal dicho resultado no se puede obtener pero se puede aproximar.
 
 
-\Mati{La idea sería dar las formulas equivalentes para N canales. Estan en las páginas 184 a 188.}
+%\Mati{La idea sería dar las formulas equivalentes para N canales. Estan en las páginas 184 a 188.}
 
