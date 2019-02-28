@@ -12,79 +12,82 @@ Analizaremos el significado de esta definición en los distintos dominios antes 
 
 \subsection{Análisis en el Dominio del Tiempo}
 
-\Mati{Poner lo que dice de la pagina 130 a 133.}
+%\Mati{Poner lo que dice de la pagina 130 a 133.}
 
 Primero, se expresan los coeficientes transformados del siguiente modo:
 	\begin{equation}
-		\begin{pmatrix}
-			\vdots \\
-			y_0[0] \\
-			y_1[0] \\
-			y_0[1] \\
-			y_1[1] \\
-			\vdots \\
-		\end{pmatrix}
+		\underbrace{\begin{pmatrix}
+					\vdots \\
+					y_0[0] \\
+					y_1[0] \\
+					y_0[1] \\
+					y_1[1] \\
+					\vdots \\
+				\end{pmatrix}
+		}_{\vect{y}}
 		=
-		\begin{pmatrix}
-			\vdots \\
-			X[0] \\
-			X[1] \\
-			X[2] \\
-			X[3] \\
-			\vdots \\
-		\end{pmatrix}
+		\underbrace{\begin{pmatrix}
+					\vdots \\
+					X[0] \\
+					X[1] \\
+					X[2] \\
+					X[3] \\
+					\vdots \\
+				\end{pmatrix}
+		}_{\vect{X}}
 		= T_a 
-		\begin{pmatrix}
-			\vdots \\
-			x[0] \\
-			x[1] \\
-			x[2] \\
-			x[3] \\
-			\vdots \\
-		\end{pmatrix}
+		\underbrace{\begin{pmatrix}
+					\vdots \\
+					x[0] \\
+					x[1] \\
+					x[2] \\
+					x[3] \\
+					\vdots \\
+				\end{pmatrix}
+		}_{\vect{x}}
 	\end{equation}
 
 Donde $\vect{T}_a$ es la matriz de análisis, que adopta la siguiente forma
 
 	\begin{equation}
-		T_a=
-		\begin{bmatrix*}[c]
+		\vect{T}_a=
+		\begin{pmatrix*}[c]
 			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots\\
 			h_0[L-1] & h_0[L-2] & h_0[L-3] & \hdots & h_0[0] & 0 & 0 \\
 			h_1[L-1] & h_1[L-2] & h_1[L-3] & \hdots & h_1[0] & 0 & 0 \\
 			0 & 0 & h_0[L-1] & \hdots & h_0[2] & h_0[1] & h_0[0] \\
 			0 & 0 & h_1[L-1] & \hdots & h_1[2] & h_1[1] & h_1[0] \\
 			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
-		\end{bmatrix*}
+		\end{pmatrix*}
 	\end{equation}
 
-Asumiendo que los filtros $h_i$ son FIR de largo $L=2K$, la matriz $T_a$ puede refactorizarse del siguiente modo:
+Asumiendo que los filtros $h_i$ son FIR de largo $L=2K$, la matriz $\vect{T}_a$ puede refactorizarse del siguiente modo:
 
 	\begin{equation}
-		T_a=
-		\begin{bmatrix*}[c]
+		\vect{T}_a=
+		\begin{pmatrix*}[c]
 			 & \vdots & \vdots &  & \vdots & \vdots & &\\
-			\hdots & A_0 & A_1 & \hdots & A_{K-1} & 0 & \hdots  \\
-			\hdots & 0 & A_0 & \hdots & A_{K-2} & A_{K-1} & \hdots  \\
+			\hdots & \vect{A}_0 & \vect{A}_1 & \hdots & \vect{A}_{K-1} & 0 & \hdots  \\
+			\hdots & 0 & \vect{A}_0 & \hdots & \vect{A}_{K-2} & \vect{A}_{K-1} & \hdots  \\
 			 & \vdots & \vdots &  & \vdots & \vdots & &\\		
-		\end{bmatrix*}
+		\end{pmatrix*}
 	\end{equation}
 
-Siendo cada una de las submatrices $A_i$
+Siendo cada una de las submatrices $\vect{A}_i$
 
 	\begin{equation}
-		A_i=
-		\begin{bmatrix*}[c]
+		\vect{A}_i=
+		\begin{pmatrix*}[c]
 			h_0[2K-1-2i] & h_0[2K-2-2i] \\
 			h_1[2K-1-2i] & h_1[2K-2-2i] \\
-		\end{bmatrix*}
+		\end{pmatrix*}
 	\end{equation}
 
 Observando el esquema \ref{fig:banco_de_2}, $y_0[k]$ e $y_1[k]$ pueden expresarse como
 
 	\begin{align}
-		y_0[k]=X[2k]	\\
-		y_1[k]=X[2k+1]
+		y_0[k]&=X[2k]	\\
+		y_1[k]&=X[2k+1]
 	\end{align}
 
 Y dado que los coeficientes transformados $X[k]$ son la proyección de la señal sobre la función base k-ésima
@@ -109,14 +112,14 @@ La misma tiene la siguiente forma
 	\begin{equation}
 		\vect{T}^T_s
 		=
-		\begin{bmatrix*}[c]
+		\begin{pmatrix*}[c]
 			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots\\
 			g_0[0] & g_0[1] & g_0[2] & \hdots & g_0[L'-1] & 0 & 0 \\
 			g_1[0] & g_1[1] & g_1[2] & \hdots & g_1[L'-1] & 0 & 0 \\
 			0 & 0 & g_0[0] & \hdots & g_0[L'-3] & g_0[L'-2] & g_0[L'-1] \\
 			0 & 0 & g_1[0] & \hdots & g_1[L'-3] & g_1[L'-2] & g_1[L'-1] \\
 			\vdots & \vdots & \vdots & & \vdots & \vdots & \vdots \\
-		\end{bmatrix*}	
+		\end{pmatrix*}	
 	\end{equation}
 
 Y agrupando en submatrices $\vect{S}_i$, siendo $g_0[n]$ y $g_1[n]$ los filtros de síntesis
@@ -124,13 +127,51 @@ Y agrupando en submatrices $\vect{S}_i$, siendo $g_0[n]$ y $g_1[n]$ los filtros 
 	\begin{equation}
 		\vect{S}_i
 		=
-		\begin{bmatrix*}[c]
+		\begin{pmatrix*}[c]
 			g_0[2i] & g_0[2i] \\
 			g_1[2i+1] & g_1[2i+1] \\
-		\end{bmatrix*}
+		\end{pmatrix*}
 	\end{equation}
-	
-\Emi{Falta agregar el speech y alguna que otra ecuación}
+
+Por lo que la matriz $\vect{T}_s$ puede expresarse como
+
+	\begin{equation}
+		\vect{T}^T_s=
+		\begin{pmatrix*}[c]
+			 & \vdots & \vdots &  & \vdots & \vdots & &\\
+			\hdots & \vect{S}^T_0 & \vect{S}^T_1 & \hdots & \vect{S}^T_{K'-1} & 0 & \hdots  \\
+			\hdots & 0 & \vect{S}^T_0 & \hdots & \vect{S}^T_{K'-2} & \vect{S}^T_{K'-1} & \hdots  \\
+			 & \vdots & \vdots &  & \vdots & \vdots & &\\		
+		\end{pmatrix*}
+	\end{equation}
+		
+Entonces, las funciones base y sus duales son
+
+	\begin{align}
+		&\text{Base de análisis}	\nonumber \\
+		&\phi_{2k}[n]=h_0[2k- n]		\\
+		&\phi_{2k+1}[n]=h_1[2k-n]
+	\end{align}
+
+	\begin{align}
+		&\text{Base de síntesis}	\nonumber \\
+		&\tilde{\phi}_{2k}[n]=g_0[n-2k]		\\
+		&\tilde{\phi}_{2k+1}[n]=g_1[n-2k]
+	\end{align}
+
+Para que las funciones formen un par de bases duales, los productos internos entre una base y su dual deben ser 1, y anularse para el resto. Matricialmente, esto equivale a
+
+	\begin{equation}
+		\vect{T}_s\vect{T}_a=\vect{T}_a\vect{T}_s=\vect{I}
+	\end{equation}
+
+Es decir, se cumple la condición de biortogonalidad
+
+	\begin{equation}
+		\langle \phi_k[n], \tilde{\phi}_l[n]\rangle=\delta[k-l]
+	\end{equation}
+
+%\Emi{Falta agregar el speech y alguna que otra ecuación}
 
 \subsection{Análisis en el Dominio Modulado}
 
